@@ -31,7 +31,7 @@
 ## 專案進度
 
 - [ ] Arduino UNO 平台測試
-  - [ ] 成功顯示基本圖形（矩形 / 圓形）
+  - [X] 成功顯示基本圖形（矩形 / 圓形）
   - [ ] 從 SD card 載入影像並顯示於 LCD
   - [ ] LCD 觸控功能測試
 
@@ -54,7 +54,14 @@
 
 ## 專案展示
 
+- **成功顯示基本圖形（矩形 / 圓形）**
+  - LCD 模組可正常運作
+  - 詳細實作流程可見 Issue #1
 
+<p align="left">
+  <img src="docs/graphic1.jpg" width="30%" alt="矩形示意圖">
+  <img src="docs/graphic2.jpg" width="30%" alt="圓形示意圖">
+</p>
 
 
 ---
