@@ -9,9 +9,10 @@ MCUFRIEND_kbv tft;
 #define WIDTH  320
 #define HEIGHT 240
 
-#define CHUNK 80   // 80 pixels
+#define CHUNK 240  
 
-uint16_t buffer[CHUNK];
+uint8_t buffer[CHUNK];
+uint16_t colors[CHUNK/2];
 
 void showRAW(const char *filename)
 {
@@ -20,19 +21,19 @@ void showRAW(const char *filename)
     Serial.println("File open failed");
     return;
   }
+  
+  bool first = true;
+  while(f.available())
+  {
+    int n = f.read(buffer, CHUNK);
 
-  for (int y = 0; y < HEIGHT; y++) {
-
-    for (int x = 0; x < WIDTH; x += CHUNK) {
-
-      for (int i = 0; i < CHUNK; i++) {
-        uint8_t hi = f.read();
-        uint8_t lo = f.read();
-        buffer[i] = (hi << 8) | lo;
-      }
-
-      tft.pushColors(buffer, CHUNK, (x == 0 && y == 0));
+    for(int i=0;i<(n/2);i++)
+    {
+      colors[i] = (buffer[i*2] << 8) | buffer[i*2+1];
     }
+    tft.pushColors(colors, n/2, first);
+    if(first)
+      first = false;
   }
 
   f.close();
