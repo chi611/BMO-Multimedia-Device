@@ -31,9 +31,9 @@
 ## 專案進度
 
 - [ ] Arduino UNO 平台測試
-  - [ ] 成功顯示基本圖形（矩形 / 圓形）
-  - [ ] 從 SD card 載入影像並顯示於 LCD
-  - [ ] LCD 觸控功能測試
+  - [X] 成功顯示基本圖形（矩形 / 圓形）
+  - [X] 從 SD card 載入影像並顯示於 LCD
+  - [X] LCD 觸控功能測試
 
 - [ ] 移植至 ESP32 平台
   - [ ] 驅動 LCD 顯示模組
@@ -54,9 +54,42 @@
 
 ## 專案展示
 
+### 🔹 **成功顯示基本圖形（矩形 / 圓形）**
+  - LCD 模組可正常運作
+  
+  - 詳細實作流程可見  
+    👉 [Issue #1 - 顯示基本圖形（矩形 / 圓形）](issues/1)
 
+<p align="left">
+  <img src="docs/graphic1.jpg" width="30%" alt="矩形示意圖">
+  <img src="docs/graphic2.jpg" width="30%" alt="圓形示意圖">
+</p>
 
+---
 
+### 🔹 **從 SD card 載入影像並顯示於 LCD**
+  - 成功從 SD Card 讀取影像資料並顯示於 TFT LCD 
+  - 將圖片轉為 **RGB565** 格式，降低 Arduino 運算量
+  - 單張圖片顯示時間約 **1.3 秒**  
+  
+  - 詳細實作流程可見  
+    👉 [Issue #2 - 從 SD cad 載入影像並顯示於 LCD ](issues/2)
+
+<p align="left">
+  <img src="docs/SDimg.jpg" width="30%" alt="顯示 SD 卡圖片">
+</p>
+
+---
+
+### 🔹 **LCD 觸控功能測試**
+  - 完成電阻式觸控功能測試
+  - 透過壓力值（Z）判斷觸控狀態
+  - 可透過觸控點擊切換圖片
+ 
+  - 詳細說明可見  
+    👉 [Issue #3 - 觸控功能與圖片切換](issues/3)  
+
+<video src="docs/touching.mp4" width="50%" controls muted autoplay></video>
 ---
 
 ## 專案目的
@@ -67,3 +100,5 @@
 - SPI 顯示控制
 - 圖片處理
 - Git 專案管理
+
+
