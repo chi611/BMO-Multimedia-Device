@@ -58,7 +58,7 @@
   - LCD 模組可正常運作
   
   - 詳細實作流程可見  
-    👉 [Issue #1 - 顯示基本圖形（矩形 / 圓形）](issues/1)
+    👉 [Issue #1 - 顯示基本圖形（矩形 / 圓形](https://github.com/chi611/BMO-Multimedia-Device/issues/1)
 
 <p align="left">
   <img src="docs/graphic1.jpg" width="30%" alt="矩形示意圖">
@@ -73,7 +73,7 @@
   - 單張圖片顯示時間約 **1.3 秒**  
   
   - 詳細實作流程可見  
-    👉 [Issue #2 - 從 SD cad 載入影像並顯示於 LCD ](issues/2)
+    👉 [Issue #2 - 從 SD cad 載入影像並顯示於 LCD](https://github.com/chi611/BMO-Multimedia-Device/issues/2)
 
 <p align="left">
   <img src="docs/SDimg.jpg" width="30%" alt="顯示 SD 卡圖片">
@@ -87,7 +87,7 @@
   - 可透過觸控點擊切換圖片
 
   - 詳細說明可見  
-    👉 [Issue #3 - 觸控功能與圖片切換](issues/3)
+    👉 [Issue #3 - 觸控功能與圖片切換](https://github.com/chi611/BMO-Multimedia-Device/issues/3)
 
 <p align="left">
   <img src="docs/touching.gif" width="30%" alt="觸控切換圖片示意">
