@@ -13,10 +13,21 @@ MCUFRIEND_kbv tft;
 // ===== 參數 =====
 #define Z_THRESHOLD 500
 
-// RAW 圖檔列表
-const char* anim[] = {"img1.raw","img2.raw"};
-int current = 0;
-int totalFrames = sizeof(anim) / sizeof(anim[0]);
+// ===== 動畫檔案列表 =====
+const char* stateDirs[] = {
+  "ori",
+  "idle",
+  "touch"
+};
+
+enum State {
+  ORI,
+  IDLE,
+  TOUCH
+};
+
+State currentState = ORI;
+// int totalFrames = sizeof(anim) / sizeof(anim[0]);
 
 #define SD_CS 10
 
@@ -27,6 +38,37 @@ int totalFrames = sizeof(anim) / sizeof(anim[0]);
 
 uint8_t buffer[CHUNK];
 uint16_t colors[CHUNK/2];
+
+void playFolder(const char* dirname)
+{
+  Serial.print("Opening dir: ");
+  Serial.println(dirname);
+
+  File dir = SD.open(dirname);
+
+  if (!dir) {
+    Serial.println("Open dir failed");
+    return;
+  }
+
+  while (true)
+  {
+    File entry = dir.openNextFile();
+    if (!entry) break;
+    
+    String name = entry.name();
+    name.toLowerCase();
+
+    if (name.endsWith(".raw")) {
+        String fullpath = String(dirname) + "/" + entry.name();
+        showRAW(fullpath.c_str());
+    }
+
+    entry.close();
+  }
+
+  dir.close();
+}
 
 void showRAW(const char *filename)
 {
@@ -68,7 +110,7 @@ void setup() {
   }
 
   Serial.println("SD OK");  
-  showRAW(anim[0]);
+  // showRAW(anim[0]);
 }
 
 // ===== 觸控判斷 =====
@@ -94,21 +136,14 @@ bool isTouching() {
 // ===== 主迴圈 =====
 void loop() {
   if (isTouching()) {
-      // 判定為有觸控
-    tft.fillScreen(0x0000);
-    current++;
-    if (current >= totalFrames) current = 0;  
 
-    Serial.println("Start drawing...");
-    unsigned long startTime = millis();
+    // 切狀態
+    currentState = (State)((currentState + 1) % 3);
 
-    showRAW(anim[current]);
+    Serial.print("Switch to state: ");
+    Serial.println(currentState);
 
-    unsigned long endTime = millis();
-
-    Serial.print("Display time: ");
-    Serial.print(endTime - startTime);
-    Serial.println(" ms");
+    playFolder(stateDirs[currentState]);
   }
 
   delay(50);
