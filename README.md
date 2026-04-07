@@ -85,11 +85,18 @@
   - 完成電阻式觸控功能測試
   - 透過壓力值（Z）判斷觸控狀態
   - 可透過觸控點擊切換圖片
- 
-  - 詳細說明可見  
-    👉 [Issue #3 - 觸控功能與圖片切換](issues/3)  
 
-<video src="docs/touching.mp4" width="50%" controls muted autoplay></video>
+  - 詳細說明可見  
+    👉 [Issue #3 - 觸控功能與圖片切換](issues/3)
+
+<p align="left">
+  <img src="docs/touching.gif" width="30%" alt="觸控切換圖片示意">
+</p>
+
+<p align="left">
+  <a href="docs/touching.mp4">▶️ 點擊觀看完整影片</a>
+</p>
+
 ---
 
 ## 專案目的
