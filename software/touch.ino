@@ -34,17 +34,17 @@ State currentState = ORI;
 #define WIDTH  320
 #define HEIGHT 240
 
-#define CHUNK 80  
+#define CHUNK 260  
 
 uint8_t buffer[CHUNK];
-uint16_t colors[CHUNK/2];
 
 unsigned long lastTouch = 0;     // 上次觸控時間
 
 void playFolder(const char* dirname)
 {
-  Serial.print("Opening dir: ");
-  Serial.println(dirname);
+  
+  // Serial.print("Opening dir: ");
+  // Serial.println(dirname);
 
   File dir = SD.open(dirname);
 
@@ -63,7 +63,16 @@ void playFolder(const char* dirname)
 
     if (name.endsWith(".raw")) {
         String fullpath = String(dirname) + "/" + entry.name();
+
+        unsigned long startTime = millis();
+     
         showRAW(fullpath.c_str());
+
+        unsigned long endTime = millis();
+
+        Serial.print("Display time: ");
+        Serial.print(endTime - startTime);
+        Serial.println(" ms");
     }
 
     entry.close();
@@ -84,14 +93,9 @@ void showRAW(const char *filename)
   while(f.available())
   {
     int n = f.read(buffer, CHUNK);
+    tft.pushColors(buffer, n/2, first);
 
-    for(int i=0;i<(n/2);i++)
-    {
-      colors[i] = (buffer[i*2] << 8) | buffer[i*2+1];
-    }
-    tft.pushColors(colors, n/2, first);
-    if(first)
-      first = false;
+    first = false;
   }
 
   f.close();
