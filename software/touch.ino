@@ -12,6 +12,7 @@ MCUFRIEND_kbv tft;
 
 // ===== 參數 =====
 #define Z_THRESHOLD 500
+const unsigned long IDLETIME = 10000; // 10 秒 (毫秒)
 
 // ===== 動畫檔案列表 =====
 const char* stateDirs[] = {
@@ -27,7 +28,6 @@ enum State {
 };
 
 State currentState = ORI;
-// int totalFrames = sizeof(anim) / sizeof(anim[0]);
 
 #define SD_CS 10
 
@@ -38,6 +38,8 @@ State currentState = ORI;
 
 uint8_t buffer[CHUNK];
 uint16_t colors[CHUNK/2];
+
+unsigned long lastTouch = 0;     // 上次觸控時間
 
 void playFolder(const char* dirname)
 {
@@ -110,7 +112,7 @@ void setup() {
   }
 
   Serial.println("SD OK");  
-  // showRAW(anim[0]);
+  lastTouch = millis();
 }
 
 // ===== 觸控判斷 =====
@@ -136,15 +138,16 @@ bool isTouching() {
 // ===== 主迴圈 =====
 void loop() {
   if (isTouching()) {
-
-    // 切狀態
-    currentState = (State)((currentState + 1) % 3);
-
-    Serial.print("Switch to state: ");
-    Serial.println(currentState);
-
-    playFolder(stateDirs[currentState]);
+    currentState = TOUCH;
+  } else if(millis() - lastTouch > IDLETIME) {
+    currentState = IDLE;
+  } else {
+    currentState = ORI;
   }
 
+  playFolder(stateDirs[currentState]);
+
+  if (currentState == TOUCH)    
+    lastTouch = millis();  
   delay(50);
 }
