@@ -30,7 +30,7 @@
 
 ## 專案進度
 
-- [ ] Arduino UNO 平台測試
+- [X] Arduino UNO 平台測試
   - [X] 成功顯示基本圖形（矩形 / 圓形）
   - [X] 從 SD card 載入影像並顯示於 LCD
   - [X] LCD 觸控功能測試
@@ -89,13 +89,57 @@
   - 詳細說明可見  
     👉 [Issue #3 - 觸控功能與圖片切換](https://github.com/chi611/BMO-Multimedia-Device/issues/3)
 
-<p align="left">
-  <img src="docs/touching.gif" width="30%" alt="觸控切換圖片示意">
-</p>
+#### 🎬 成果展示
 
-<p align="left">
-  <a href="docs/touching.mp4">▶️ 點擊觀看完整影片</a>
-</p>
+<video src="https://github.com/user-attachments/assets/bbcd9260-cd45-4666-beb7-aaf69e4ce3ae" width="30%" autoplay loop muted playsinline></video>
+
+---
+
+### 🔹 功能完成（GIF 顯示與互動控制）
+
+  - 實現 GIF 動畫顯示（透過拆分圖片並轉為 RGB565 `.raw`）
+  - 完成觸控互動功能，並依狀態機切換不同動畫
+
+  - 詳細說明可見  
+  👉 [Issue #5 - 實作觸控狀態機，整合 10s 閒置偵測、觸控偵測與 GIF 動畫播放](https://github.com/chi611/BMO-Multimedia-Device/issues/5)
+
+#### 🧠 系統狀態架構圖
+
+<img width="405" height="400" alt="Image" src="https://github.com/user-attachments/assets/1016c4e3-7e4f-4ebe-bcee-2353c3edd614" />
+
+
+#### 🖼️ 圖片素材
+
+| 初始畫面（ori.bmp）                                                                                            | 閒置動畫（idle.gif）                                                                                           | 觸發動畫（touch.gif）                                                                                          |
+| -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| <img src="https://github.com/user-attachments/assets/5df2fd37-03d4-4d31-8c17-2e6eaafa2153" width="200"/> | <img src="https://github.com/user-attachments/assets/6314195d-2113-47d3-b836-d9bb3b104e5b" width="200"/> | <img src="https://github.com/user-attachments/assets/fc8004f9-9c5f-4924-bef6-da1668b4110e" width="200"/> |
+
+
+
+#### 🎬 成果展示
+
+<video src="https://github.com/user-attachments/assets/3a9ba620-2303-4a3c-9630-5411374319d6" width="50%" autoplay loop muted playsinline></video>
+
+
+
+#### ⚠️ 目前限制
+
+由於系統畫面更新速度受限（約 **1.25 秒 / frame**），目前顯示效果尚無法達到一般 GIF 的流暢度。
+
+主要原因如下：
+
+* SD 卡讀取速度限制
+* SPI 傳輸頻寬不足（LCD 更新速度瓶頸）
+* UNO 效能不足
+
+因此在實際操作中，動畫呈現較接近「逐張圖片切換」，而非連續流暢播放。
+
+
+
+#### 🔧 後續優化方向
+
+* 改用效能較高的平台（如 ESP32）
+* 提升 SPI clock 或改用更快的顯示介面
 
 ---
 
